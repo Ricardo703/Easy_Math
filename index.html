@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathDocs - Organizador de Matemática</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+    <div id="floating-symbols"></div>
+
+    <div class="container">
+        <div class="header">
+            <svg class="header-icon" fill="white" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+            </svg>
+            <h1>MathDocs</h1>
+            <p class="subtitle">Organize seus arquivos de matemática com estilo</p>
+            <div class="button-group">
+                <button class="btn btn-theory" id="btn-theory">
+                    <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                    <span id="theory-btn-text">Ver Teoria</span>
+                </button>
+                <button class="btn btn-activities" id="btn-activities">
+                    <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                        <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+                    </svg>
+                    <span id="activities-btn-text">Praticar Exercícios</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="theory-section" class="section hidden">
+            <!-- Conteúdo de Teoria Estático -->
+            <div class="category-selector">
+                <button class="category-btn category-probability active" data-category="probability">
+                    <span data-category-icon>🎲</span> <span data-category-name>Probabilidade</span>
+                </button>
+                <button class="category-btn category-triangles" data-category="triangles">
+                    <span data-category-icon>📐</span> <span data-category-name>Triângulos</span>
+                </button>
+                <button class="category-btn category-pythagoras" data-category="pythagoras">
+                    <span data-category-icon>△</span> <span data-category-name>Pitágoras</span>
+                </button>
+            </div>
+
+            <div class="theory-card-container" data-category-content="probability">
+                <div class="card theory-card">
+                    <div class="theory-header">
+                        <div class="theory-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);">🎲</div>
+                        <span>Probabilidade: Medindo o Acaso</span>
+                    </div>
+                    <div data-theory-sections-container>
+                        <div class="theory-section" style="border-left-color: #3b82f6;">
+                            <h3>Conceitos Fundamentais</h3>
+                            <p>Probabilidade é a chance de um evento ocorrer. É expressa como um número entre 0 e 1 (ou 0% a 100%). Um evento impossível tem probabilidade 0, e um evento certo tem probabilidade 1. O espaço amostral (Ω) é o conjunto de todos os resultados possíveis.</p>
+                            <div class="formula-box">P(E) = (Nº de Resultados Favoráveis) / (Nº Total de Resultados)</div>
+                        </div>
+                        <div class="theory-section" style="border-left-color: #3b82f6;">
+                            <h3>União e Interseção de Eventos</h3>
+                            <p>A probabilidade da **união** de dois eventos (A ou B) é calculada para evitar a contagem dupla da interseção. Se os eventos são **Mutuamente Exclusivos** (não podem ocorrer juntos), a interseção P(A ∩ B) é zero.</p>
+                            <div class="formula-box">P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</div>
+                        </div>
+                        <div class="theory-section" style="border-left-color: #3b82f6;">
+                            <h3>Eventos Independentes e Condicionais</h3>
+                            <p>Eventos são **independentes** se a ocorrência de um não afeta a do outro. A probabilidade de ambos ocorrerem é o produto de suas probabilidades. **Probabilidade Condicional** (P(B|A)) é a chance de B ocorrer dado que A já ocorreu.</p>
+                            <div class="formula-box">P(A ∩ B) = P(A) ⋅ P(B) (se independentes) <br> P(B|A) = P(A ∩ B) / P(A) (Condicional)</div>
+                        </div>
+                        <div class="theory-section" style="border-left-color: #3b82f6;">
+                            <h3>Análise Combinatória Aplicada</h3>
+                            <p>A contagem dos resultados favoráveis e totais frequentemente depende de técnicas de combinatória. **Permutação** (P) é a ordem dos elementos, e **Combinação** (C) é a escolha de elementos sem importar a ordem.</p>
+                            <ul>
+                                <li><svg width="12" height="12" fill="#3b82f6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**Permutação (Ordem importa):** P_n = n! (Ex: Anagramas).</span></li>
+                                <li><svg width="12" height="12" fill="#3b82f6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**Combinação (Ordem NÃO importa):** C(n, k) = n! / (k! ⋅ (n-k)!) (Ex: Escolha de um grupo).</span></li>
+                            </ul>
+                            <div class="example-box" style="border-left-color: #3b82f6;"><p><strong>Exemplo:</strong> Escolher 3 bolas de 10 sem reposição. A ordem não importa, usa-se Combinação C(10, 3).</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="theory-card-container hidden" data-category-content="triangles">
+                <div class="card theory-card">
+                    <div class="theory-header">
+                        <div class="theory-icon" style="background: linear-gradient(135deg, #f97316 0%, #06b6d4 100%);">📐</div>
+                        <span>Triângulos: Congruência e Semelhança</span>
+                    </div>
+                    <div data-theory-sections-container>
+                        <div class="theory-section" style="border-left-color: #f97316;">
+                            <h3>Casos de Congruência (Igualdade)</h3>
+                            <p>Dois triângulos são **congruentes** se for possível superpor um sobre o outro, ou seja, se têm os mesmos lados e ângulos. Os principais casos são:</p>
+                            <ul>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**LAL (Lado-Ângulo-Lado)**: Dois lados e o ângulo **entre** eles congruentes.</span></li>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**ALA (Ângulo-Lado-Ângulo)**: Dois ângulos e o lado **entre** eles congruentes.</span></li>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**LLL (Lado-Lado-Lado)**: Os três lados congruentes.</span></li>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**LAAo (Lado-Ângulo-Ângulo oposto)**: Um lado, um ângulo adjacente e o ângulo oposto a esse lado congruentes.</span></li>
+                            </ul>
+                            <div class="example-box" style="border-left-color: #f97316;"><p><strong>Exemplo:</strong> No caso de triângulos retângulos, o caso especial é o **Caso Hipotenusa-Cateto (HC)**.</p></div>
+                        </div>
+                        <div class="theory-section" style="border-left-color: #f97316;">
+                            <h3>Semelhança de Triângulos</h3>
+                            <p>Dois triângulos são **semelhantes** (≈) se tiverem a mesma forma, mas não necessariamente o mesmo tamanho. Isso ocorre se os ângulos correspondentes forem iguais e os lados correspondentes forem proporcionais (razão de semelhança k).</p>
+                            <div class="formula-box">k = Lado₁/Lado'₁ = Lado₂/Lado'₂ = Lado₃/Lado'₃</div>
+                            <ul>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**AA (Ângulo-Ângulo)**: Dois ângulos correspondentes são congruentes.</span></li>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**LLL (Lado-Lado-Lado)**: Os três lados correspondentes são proporcionais.</span></li>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**LAL (Lado-Ângulo-Lado)**: Dois lados correspondentes são proporcionais e os ângulos **entre** eles são congruentes.</span></li>
+                            </ul>
+                        </div>
+                        <div class="theory-section" style="border-left-color: #f97316;">
+                            <h3>Classificação e Propriedades Fundamentais</h3>
+                            <p>A soma dos ângulos internos de qualquer triângulo é sempre **180°**. Os triângulos podem ser classificados por seus lados ou ângulos:</p>
+                            <ul>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**Lados:** **Escaleno** (3 lados diferentes), **Isósceles** (2 lados iguais), **Equilátero** (3 lados iguais).</span></li>
+                                <li><svg width="12" height="12" fill="#f97316" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**Ângulos:** **Acutângulo** (3 ângulos agudos, < 90°), **Retângulo** (1 ângulo reto, = 90°), **Obtusângulo** (1 ângulo obtuso, > 90°).</span></li>
+                            </ul>
+                            <div class="tip-box">💡 Dica: Em um triângulo isósceles, os ângulos opostos aos lados iguais são congruentes.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="theory-card-container hidden" data-category-content="pythagoras">
+                <div class="card theory-card">
+                    <div class="theory-header">
+                        <div class="theory-icon" style="background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);">c²</div>
+                        <span>Teorema de Pitágoras e Distância</span>
+                    </div>
+                    <div data-theory-sections-container>
+                        <div class="theory-section" style="border-left-color: #10b981;">
+                            <h3>Teorema de Pitágoras</h3>
+                            <p>Aplicável **somente** a triângulos retângulos (que possuem um ângulo de 90°). A hipotenusa (c) é o lado oposto ao ângulo reto, e os outros dois são os catetos (a e b). O teorema estabelece uma relação fundamental entre os comprimentos desses lados.</p>
+                            <div class="formula-box">a² + b² = c²</div>
+                            <div class="example-box" style="border-left-color: #10b981;"><p><strong>Exemplo:</strong> Triângulo de lados 3, 4 e 5: 3² + 4² = 9 + 16 = 25 = 5². A hipotenusa é 5.</p></div>
+                        </div>
+                        <div class="theory-section" style="border-left-color: #10b981;">
+                            <h3>Distância entre Dois Pontos (Plano Cartesiano)</h3>
+                            <p>O Teorema de Pitágoras é usado para calcular a distância (d) entre dois pontos A(x₁, y₁) e B(x₂, y₂) no plano cartesiano, formando um triângulo retângulo onde os catetos são as variações em x (Δx) e em y (Δy).</p>
+                            <div class="formula-box">d² = (x₂ - x₁)² + (y₂ - y₁)²</div>
+                            <div class="tip-box">💡 Dica: Lembre-se: Δx e Δy são os catetos, e a distância d é a hipotenusa.</div>
+                        </div>
+                        <div class="theory-section" style="border-left-color: #10b981;">
+                            <h3>Relações Métricas no Triângulo Retângulo</h3>
+                            <p>Outras relações importantes envolvem a altura (h) relativa à hipotenusa e as projeções dos catetos (m e n).</p>
+                            <ul>
+                                <li><svg width="12" height="12" fill="#10b981" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>Hipotenusa é igual à soma das projeções: c = m + n</span></li>
+                                <li><svg width="12" height="12" fill="#10b981" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>Quadrado do cateto é o produto da hipotenusa pela sua projeção: a² = c ⋅ m e b² = c ⋅ n</span></li>
+                                <li><svg width="12" height="12" fill="#10b981" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>Quadrado da altura é o produto das projeções: h² = m ⋅ n</span></li>
+                                <li><svg width="12" height="12" fill="#10b981" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>Produto dos catetos é igual ao produto da hipotenusa pela altura: a ⋅ b = c ⋅ h</span></li>
+                            </ul>
+                        </div>
+                        <div class="theory-section" style="border-left-color: #10b981;">
+                            <h3>Aplicações Notáveis</h3>
+                            <p>O Teorema de Pitágoras é a base para várias fórmulas geométricas úteis:</p>
+                            <ul>
+                                <li><svg width="12" height="12" fill="#10b981" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**Diagonal do Quadrado (d):** d = L √2, onde L é o lado.</span></li>
+                                <li><svg width="12" height="12" fill="#10b981" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg><span>**Altura do Triângulo Equilátero (h):** h = (L √3) / 2, onde L é o lado.</span></li>
+                            </ul>
+                            <div class="tip-box">💡 Dica: Essas fórmulas são derivadas diretamente de a² + b² = c² aplicada a metade de cada figura.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="activities-section" class="section hidden">
+            <!-- Conteúdo de Atividades Estático -->
+            <div class="category-selector">
+                <button class="category-btn category-probability active" data-category="probability">
+                    <span data-category-icon>🎲</span> <span data-category-name>Probabilidade</span>
+                </button>
+                <button class="category-btn category-triangles" data-category="triangles">
+                    <span data-category-icon>📐</span> <span data-category-name>Triângulos</span>
+                </button>
+                <button class="category-btn category-pythagoras" data-category="pythagoras">
+                    <span data-category-icon>△</span> <span data-category-name>Pitágoras</span>
+                </button>
+            </div>
+
+            <div class="activities-card-container" data-category-content="probability">
+                <div class="activity-card" data-activity-id="1" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">1</div>
+                        <h3 class="activity-title">Soma 7</h3>
+                    </div>
+                    <p class="activity-description">Dois dados. P(soma 7)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">1/12</button>
+                        <button class="option-btn" data-option-id="b">1/6</button>
+                        <button class="option-btn" data-option-id="c">1/9</button>
+                        <button class="option-btn" data-option-id="d">1/4</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: 36 resultados</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>6/36 = 1/6</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="2" data-correct-option="c">
+                    <div class="activity-header">
+                        <div class="activity-number">2</div>
+                        <h3 class="activity-title">Ás ou Copas</h3>
+                    </div>
+                    <p class="activity-description">Baralho 52. P(Ás ou Copas)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">17/52</button>
+                        <button class="option-btn" data-option-id="b">1/4</button>
+                        <button class="option-btn" data-option-id="c">4/13</button>
+                        <button class="option-btn" data-option-id="d">13/52</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Inclusão-exclusão</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>16/52 = 4/13</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="3" data-correct-option="c">
+                    <div class="activity-header">
+                        <div class="activity-number">3</div>
+                        <h3 class="activity-title">Condicional</h3>
+                    </div>
+                    <p class="activity-description">60% Mat, 70% Port, 50% ambas. P(Port|Mat)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">50%</button>
+                        <button class="option-btn" data-option-id="b">71,43%</button>
+                        <button class="option-btn" data-option-id="c">83,33%</button>
+                        <button class="option-btn" data-option-id="d">60%</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: P(B|A)=P(A∩B)/P(A)</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>0.5 / 0.6 = 83,33%</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="4" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">4</div>
+                        <h3 class="activity-title">Independentes</h3>
+                    </div>
+                    <p class="activity-description">Moeda e dado. P(Cara e 6)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">1/6</button>
+                        <button class="option-btn" data-option-id="b">1/12</button>
+                        <button class="option-btn" data-option-id="c">1/8</button>
+                        <button class="option-btn" data-option-id="d">1/2</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Multiplicar</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>1/2 × 1/6 = 1/12</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="5" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">5</div>
+                        <h3 class="activity-title">Complementar</h3>
+                    </div>
+                    <p class="activity-description">P(não tirar rainha)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">48/52</button>
+                        <button class="option-btn" data-option-id="b">4/52</button>
+                        <button class="option-btn" data-option-id="c">44/52</button>
+                        <button class="option-btn" data-option-id="d">50/52</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: 1 - P(rainha)</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>48/52 = 12/13</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="6" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">6</div>
+                        <h3 class="activity-title">Sem reposição</h3>
+                    </div>
+                    <p class="activity-description">Urna: 3 azuis, 2 vermelhas. P(2 Azuis sem reposição)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">1/5</button>
+                        <button class="option-btn" data-option-id="b">3/10</button>
+                        <button class="option-btn" data-option-id="c">9/25</button>
+                        <button class="option-btn" data-option-id="d">6/25</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: 3/5 * 2/4</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>3/5 × 2/4 = 6/20 = 3/10</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="7" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">7</div>
+                        <h3 class="activity-title">Mutuamente Exclusivos</h3>
+                    </div>
+                    <p class="activity-description">P(A)=0.3, P(B)=0.4. Se A e B são M.E., P(A U B)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">0.7</button>
+                        <button class="option-btn" data-option-id="b">0.12</button>
+                        <button class="option-btn" data-option-id="c">0.58</button>
+                        <button class="option-btn" data-option-id="d">0.6</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: P(A U B) = P(A) + P(B)</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>0.3 + 0.4 = 0.7</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="8" data-correct-option="c">
+                    <div class="activity-header">
+                        <div class="activity-number">8</div>
+                        <h3 class="activity-title">Pelo menos um</h3>
+                    </div>
+                    <p class="activity-description">P(acertar alvo) = 0.6. P(acertar pelo menos 1 em 3 tentativas)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">0.216</button>
+                        <button class="option-btn" data-option-id="b">0.784</button>
+                        <button class="option-btn" data-option-id="c">0.936</button>
+                        <button class="option-btn" data-option-id="d">0.64</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: 1 - P(erro em todas)</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>P(erro)=0.4. P(erro em 3) = 0.4³ = 0.064. P(pelo menos 1) = 1 - 0.064 = 0.936</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="9" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">9</div>
+                        <h3 class="activity-title">Permutação</h3>
+                    </div>
+                    <p class="activity-description">Quantos anagramas da palavra RIO?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">3</button>
+                        <button class="option-btn" data-option-id="b">6</button>
+                        <button class="option-btn" data-option-id="c">9</button>
+                        <button class="option-btn" data-option-id="d">12</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: 3!</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>3! = 3 × 2 × 1 = 6</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="10" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">10</div>
+                        <h3 class="activity-title">Combinação</h3>
+                    </div>
+                    <p class="activity-description">Escolher 2 frutas de 5 (banana, maçã, uva, pera, laranja)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">10</button>
+                        <button class="option-btn" data-option-id="b">20</button>
+                        <button class="option-btn" data-option-id="c">25</button>
+                        <button class="option-btn" data-option-id="d">120</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: C(5, 2)</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>C(5, 2) = 5! / (2! × 3!) = 10</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activities-card-container hidden" data-category-content="triangles">
+                <div class="activity-card" data-activity-id="11" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">11</div>
+                        <h3 class="activity-title">LAL</h3>
+                    </div>
+                    <p class="activity-description">AB=DE=5, AC=DF=7, ∠A=∠D=60°</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">LAL</button>
+                        <button class="option-btn" data-option-id="b">ALA</button>
+                        <button class="option-btn" data-option-id="c">LLL</button>
+                        <button class="option-btn" data-option-id="d">LAAo</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Ângulo entre lados</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>Lado-Ângulo-Lado</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="12" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">12</div>
+                        <h3 class="activity-title">ALA</h3>
+                    </div>
+                    <p class="activity-description">BC=EF=8, ∠B=∠E=45°, ∠C=∠F=70°</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">LAL</button>
+                        <button class="option-btn" data-option-id="b">ALA</button>
+                        <button class="option-btn" data-option-id="c">LLL</button>
+                        <button class="option-btn" data-option-id="d">Não</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: 2 ângulos adjacentes</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>Ângulo-Lado-Ângulo</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="13" data-correct-option="c">
+                    <div class="activity-header">
+                        <div class="activity-number">13</div>
+                        <h3 class="activity-title">LLL</h3>
+                    </div>
+                    <p class="activity-description">AB=XY=6, BC=YZ=8, AC=XZ=10</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">LAL</button>
+                        <button class="option-btn" data-option-id="b">ALA</button>
+                        <button class="option-btn" data-option-id="c">LLL</button>
+                        <button class="option-btn" data-option-id="d">LAAo</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: 3 lados</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>Lado-Lado-Lado</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="14" data-correct-option="d">
+                    <div class="activity-header">
+                        <div class="activity-number">14</div>
+                        <h3 class="activity-title">LAAo</h3>
+                    </div>
+                    <p class="activity-description">AB=DE=5, ∠A=∠D=50°, ∠C=∠F=60°</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">LAL</button>
+                        <button class="option-btn" data-option-id="b">ALA</button>
+                        <button class="option-btn" data-option-id="c">LLL</button>
+                        <button class="option-btn" data-option-id="d">LAAo</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Ângulo oposto</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>Lado-Ângulo-Ângulo oposto</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="15" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">15</div>
+                        <h3 class="activity-title">AAA?</h3>
+                    </div>
+                    <p class="activity-description">Triângulos com 60°,60°,60°. Congruentes?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">Sim</button>
+                        <button class="option-btn" data-option-id="b">Não</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Semelhança ≠ congruência</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>São semelhantes, não necessariamente congruentes.</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="16" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">16</div>
+                        <h3 class="activity-title">Razão de Semelhança</h3>
+                    </div>
+                    <p class="activity-description">Triângulo A (lados 3, 4, 5) e Triângulo B (lados 6, 8, 10). Qual a razão de semelhança (k)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">1/2</button>
+                        <button class="option-btn" data-option-id="b">2</button>
+                        <button class="option-btn" data-option-id="c">4</button>
+                        <button class="option-btn" data-option-id="d">1</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Lado B / Lado A</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>6/3 = 8/4 = 10/5 = 2. A razão é 2.</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="17" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">17</div>
+                        <h3 class="activity-title">Classificação Ângulo</h3>
+                    </div>
+                    <p class="activity-description">Um triângulo com ângulos 30°, 60°, 90° é classificado como:</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">Acutângulo</button>
+                        <button class="option-btn" data-option-id="b">Retângulo</button>
+                        <button class="option-btn" data-option-id="c">Obtusângulo</button>
+                        <button class="option-btn" data-option-id="d">Equilátero</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Ângulo máximo</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>Possui um ângulo de 90°.</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="18" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">18</div>
+                        <h3 class="activity-title">Classificação Lado</h3>
+                    </div>
+                    <p class="activity-description">Um triângulo com lados 5, 5, 8 é classificado como:</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">Escaleno</button>
+                        <button class="option-btn" data-option-id="b">Isósceles</button>
+                        <button class="option-btn" data-option-id="c">Equilátero</button>
+                        <button class="option-btn" data-option-id="d">Retângulo</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Número de lados iguais</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>Possui dois lados iguais.</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="19" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">19</div>
+                        <h3 class="activity-title">Soma de Ângulos</h3>
+                    </div>
+                    <p class="activity-description">Se dois ângulos de um triângulo medem 40° e 70°, qual é o terceiro ângulo?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">110°</button>
+                        <button class="option-btn" data-option-id="b">70°</button>
+                        <button class="option-btn" data-option-id="c">90°</button>
+                        <button class="option-btn" data-option-id="d">60°</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Soma = 180°</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>180° - (40° + 70°) = 180° - 110° = 70°.</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="20" data-correct-option="c">
+                    <div class="activity-header">
+                        <div class="activity-number">20</div>
+                        <h3 class="activity-title">Perímetro Semelhança</h3>
+                    </div>
+                    <p class="activity-description">Triângulo A (perímetro 10) e Triângulo B (perímetro 40). Qual a razão de semelhança (k)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">1/4</button>
+                        <button class="option-btn" data-option-id="b">2</button>
+                        <button class="option-btn" data-option-id="c">4</button>
+                        <button class="option-btn" data-option-id="d">10</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Razão entre perímetros é a mesma dos lados.</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>Razão k = 40/10 = 4.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activities-card-container hidden" data-category-content="pythagoras">
+                <div class="activity-card" data-activity-id="21" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">21</div>
+                        <h3 class="activity-title">3-4-?</h3>
+                    </div>
+                    <p class="activity-description">Catetos 3 e 4. Hipotenusa?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">5</button>
+                        <button class="option-btn" data-option-id="b">7</button>
+                        <button class="option-btn" data-option-id="c">12</button>
+                        <button class="option-btn" data-option-id="d">1</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: c² = a² + b²</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>√(9+16) = √25 = 5</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="22" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">22</div>
+                        <h3 class="activity-title">5-?-13</h3>
+                    </div>
+                    <p class="activity-description">Hip 13, cateto 5. Outro?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">8</button>
+                        <button class="option-btn" data-option-id="b">12</button>
+                        <button class="option-btn" data-option-id="c">10</button>
+                        <button class="option-btn" data-option-id="d">18</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: a² = c² - b²</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>√(169-25) = √144 = 12</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="23" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">23</div>
+                        <h3 class="activity-title">6-8-10</h3>
+                    </div>
+                    <p class="activity-description">É retângulo?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">Sim</button>
+                        <button class="option-btn" data-option-id="b">Não</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Verifique a² + b² = c²</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>36 + 64 = 100 → SIM</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="24" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">24</div>
+                        <h3 class="activity-title">Distância</h3>
+                    </div>
+                    <p class="activity-description">A(1,2), B(4,6). Distância?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">3</button>
+                        <button class="option-btn" data-option-id="b">5</button>
+                        <button class="option-btn" data-option-id="c">7</button>
+                        <button class="option-btn" data-option-id="d">4</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Pitágoras no plano</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>Δx=3, Δy=4 → √(9+16)=5</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="25" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">25</div>
+                        <h3 class="activity-title">Escada</h3>
+                    </div>
+                    <p class="activity-description">Escada 5m, base 3m. Altura?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">4m</button>
+                        <button class="option-btn" data-option-id="b">8m</button>
+                        <button class="option-btn" data-option-id="c">2m</button>
+                        <button class="option-btn" data-option-id="d">6m</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Cateto oposto</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>h² + 9 = 25 → h = 4m</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="26" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">26</div>
+                        <h3 class="activity-title">Altura (h)</h3>
+                    </div>
+                    <p class="activity-description">Triângulo retângulo. Projeções m=4 e n=9. Qual a altura (h)?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">6</button>
+                        <button class="option-btn" data-option-id="b">13</button>
+                        <button class="option-btn" data-option-id="c">36</button>
+                        <button class="option-btn" data-option-id="d">16</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: h² = m ⋅ n</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>h² = 4 × 9 = 36. h = 6</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="27" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">27</div>
+                        <h3 class="activity-title">Cateto e Projeção</h3>
+                    </div>
+                    <p class="activity-description">Hipotenusa c=20. Projeção de 'a' é m=5. Qual o cateto 'a'?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">10</button>
+                        <button class="option-btn" data-option-id="b">15</button>
+                        <button class="option-btn" data-option-id="c">25</button>
+                        <button class="option-btn" data-option-id="d">100</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: a² = c ⋅ m</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>a² = 20 × 5 = 100. a = 10</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="28" data-correct-option="b">
+                    <div class="activity-header">
+                        <div class="activity-number">28</div>
+                        <h3 class="activity-title">Diagonal do Quadrado</h3>
+                    </div>
+                    <p class="activity-description">Qual a diagonal de um quadrado de lado 4?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">4</button>
+                        <button class="option-btn" data-option-id="b">4√2</button>
+                        <button class="option-btn" data-option-id="c">8</button>
+                        <button class="option-btn" data-option-id="d">2√2</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: d = L√2</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>d² = 4² + 4² = 32. d = √32 = 4√2</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="29" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">29</div>
+                        <h3 class="activity-title">Diagonal do Retângulo</h3>
+                    </div>
+                    <p class="activity-description">Qual a diagonal de um retângulo com lados 6 e 8?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">10</button>
+                        <button class="option-btn" data-option-id="b">14</button>
+                        <button class="option-btn" data-option-id="c">100</button>
+                        <button class="option-btn" data-option-id="d">5</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: Catetos 6 e 8</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>d² = 6² + 8² = 36 + 64 = 100. d = 10</span></p>
+                    </div>
+                </div>
+                <div class="activity-card" data-activity-id="30" data-correct-option="a">
+                    <div class="activity-header">
+                        <div class="activity-number">30</div>
+                        <h3 class="activity-title">Altura Triângulo Equilátero</h3>
+                    </div>
+                    <p class="activity-description">Qual a altura de um triângulo equilátero de lado 6?</p>
+                    <div data-options-container>
+                        <button class="option-btn" data-option-id="a">3√3</button>
+                        <button class="option-btn" data-option-id="b">6√3</button>
+                        <button class="option-btn" data-option-id="c">3</button>
+                        <button class="option-btn" data-option-id="d">4√3</button>
+                    </div>
+                    <div class="hint-box">
+                        <span class="hint-text">Dica: h = (L√3)/2</span>
+                    </div>
+                    <div data-result-container></div>
+                    <button class="reveal-btn hidden">Revelar Explicação</button>
+                    <div class="explanation-box hidden">
+                        <p><strong>Explicação:</strong> <span data-activity-explanation>h = (6√3)/2 = 3√3</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="upload-area" id="upload-area">
+            <input type="file" id="file-input" class="hidden" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.png">
+            <svg class="upload-icon" fill="white" viewBox="0 0 24 24">
+                <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+            </svg>
+            <h3>Arraste seus arquivos aqui</h3>
+            <p>ou clique para selecionar</p>
+            <p>PDF, DOC, DOCX, TXT, JPG, PNG</p>
+        </div>
+
+        <div id="files-container" class="hidden">
+            <div class="files-list">
+                <h2>Arquivos Anexados (<span id="files-count">0</span>)</h2>
+                <div id="files-list"></div>
+            </div>
+        </div>
+
+        <div id="empty-state">Nenhum arquivo anexado ainda. Comece fazendo upload!</div>
+    </div>
+
+    <section id="templates-section" class="hidden">
+        
+        <template id="category-btn-template">
+            <button class="category-btn" data-category-key>
+                <span data-category-icon></span> <span data-category-name></span>
+            </button>
+        </template>
+        
+        <template id="theory-card-template">
+            <div class="card theory-card">
+                <div class="theory-header">
+                    <div class="theory-icon" data-theory-icon></div>
+                    <span data-theory-title></span>
+                </div>
+                <div data-theory-sections-container>
+                    </div>
+            </div>
+        </template>
+        
+        <template id="theory-sub-section-template">
+            <div class="theory-section" data-border-color>
+                <h3 data-section-title></h3>
+                <p data-section-content></p>
+                </div>
+        </template>
+
+        <template id="activity-card-template">
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-number" data-activity-id></div>
+                    <h3 class="activity-title" data-activity-title></h3>
+                </div>
+                <p class="activity-description" data-activity-description></p>
+                
+                <div data-options-container>
+                    </div>
+
+                <div class="hint-box">
+                    <span class="hint-text" data-activity-hint></span>
+                </div>
+
+                <div data-result-container></div>
+
+                <button class="reveal-btn hidden" data-reveal-btn>Revelar Explicação</button>
+                
+                <div class="explanation-box hidden" data-explanation-box>
+                    <p><strong>Explicação:</strong> <span data-activity-explanation></span></p>
+                </div>
+            </div>
+        </template>
+
+        <template id="option-btn-template">
+            <button class="option-btn" data-option-id></button>
+        </template>
+        
+        <template id="result-success-template">
+            <div class="result-box result-success">
+                <p>🎉 Resposta Correta! Parabéns.</p>
+            </div>
+        </template>
+
+        <template id="result-error-template">
+            <div class="result-box result-error">
+                <p>Resposta Incorreta. Tente novamente ou revele a resposta.</p>
+            </div>
+        </template>
+        
+        <template id="file-item-template">
+            <div class="file-item">
+                <div class="file-icon">
+                    <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v4h5v12H6z"/>
+                    </svg>
+                </div>
+                <div class="file-info">
+                    <div class="file-name" data-file-name></div>
+                    <div class="file-meta" data-file-meta></div>
+                </div>
+                <div>
+                    <button class="icon-btn" title="Abrir" data-open-btn>
+                        <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn delete" title="Remover" data-remove-btn>
+                        <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </template>
+
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
