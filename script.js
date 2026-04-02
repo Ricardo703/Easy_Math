@@ -96,7 +96,7 @@ function revealAnswer(activityId) {
 function updateActivityState(activityId = null) {
     const activitiesToUpdate = activityId 
         ? [document.querySelector(`.activity-card[data-activity-id="${activityId}"]`)]
-        : document.querySelectorAll('#activities-section .activities-card-container:not(.hidden) .activity-card');
+        : document.querySelectorAll('#activities-section .activity-card');
 
     activitiesToUpdate.forEach(card => {
         if (!card) return;
@@ -113,39 +113,47 @@ function updateActivityState(activityId = null) {
         const explanationBox = card.querySelector('.explanation-box');
 
         // 1. Lógica dos Botões de Opção
-        optionsContainer.querySelectorAll('.option-btn').forEach(btn => {
-            const optionId = btn.getAttribute('data-option-id');
-            btn.disabled = isAnswered;
-            btn.classList.remove('correct', 'wrong');
+        if (optionsContainer) {
+            optionsContainer.querySelectorAll('.option-btn').forEach(btn => {
+                const optionId = btn.getAttribute('data-option-id');
+                btn.disabled = isAnswered;
+                btn.classList.remove('correct', 'wrong');
 
-            if (isAnswered) {
-                if (optionId === correctOptionId) {
-                    btn.classList.add('correct');
-                } else if (optionId === selectedOptionId) {
-                    btn.classList.add('wrong');
+                if (isAnswered) {
+                    if (optionId === correctOptionId) {
+                        btn.classList.add('correct');
+                    } else if (optionId === selectedOptionId) {
+                        btn.classList.add('wrong');
+                    }
                 }
-            }
-        });
+            });
+        }
 
         // 2. Lógica do Resultado
-        resultContainer.innerHTML = '';
-        if (isAnswered && !isWrong) {
-            resultContainer.innerHTML = '<div class="result-box result-success"><p>🎉 Resposta Correta! Parabéns.</p></div>';
-        } else if (isAnswered && isWrong) {
-            resultContainer.innerHTML = '<div class="result-box result-error"><p>Resposta Incorreta. Tente novamente ou revele a resposta.</p></div>';
+        if (resultContainer) {
+            resultContainer.innerHTML = '';
+            if (isAnswered && !isWrong) {
+                resultContainer.innerHTML = '<div class="result-box result-success"><p>🎉 Resposta Correta! Parabéns.</p></div>';
+            } else if (isAnswered && isWrong) {
+                resultContainer.innerHTML = '<div class="result-box result-error"><p>Resposta Incorreta. Tente novamente ou revele a resposta.</p></div>';
+            }
         }
 
         // 3. Lógica do Botão Revelar e Explicação
-        if (isAnswered && isWrong && !isAnswerRevealed) {
-            revealBtn.classList.remove('hidden');
-        } else {
-            revealBtn.classList.add('hidden');
+        if (revealBtn) {
+            if (isAnswered && isWrong && !isAnswerRevealed) {
+                revealBtn.classList.remove('hidden');
+            } else {
+                revealBtn.classList.add('hidden');
+            }
         }
 
-        if (isAnswerRevealed) {
-            explanationBox.classList.remove('hidden');
-        } else {
-            explanationBox.classList.add('hidden');
+        if (explanationBox) {
+            if (isAnswerRevealed) {
+                explanationBox.classList.remove('hidden');
+            } else {
+                explanationBox.classList.add('hidden');
+            }
         }
     });
 }
@@ -168,7 +176,7 @@ function handleFiles(fileList) {
             id: fileIdCounter++,
             name: file.name,
             size: formatFileSize(file.size),
-            type: file.type,
+            type: file.type || 'application/octet-stream',
             file: file
         });
     }
@@ -193,19 +201,20 @@ function renderFiles() {
     const filesCount = document.getElementById('files-count');
     const emptyState = document.getElementById('empty-state');
 
-    filesCount.textContent = files.length;
-    filesList.innerHTML = ''; // Limpa antes de renderizar
+    if (filesCount) filesCount.textContent = files.length;
+    if (filesList) filesList.innerHTML = ''; // Limpa antes de renderizar
 
     if (files.length === 0) {
-        filesContainer.classList.add('hidden');
-        emptyState.classList.remove('hidden');
+        if (filesContainer) filesContainer.classList.add('hidden');
+        if (emptyState) emptyState.classList.remove('hidden');
         return;
     }
 
-    filesContainer.classList.remove('hidden');
-    emptyState.classList.add('hidden');
+    if (filesContainer) filesContainer.classList.remove('hidden');
+    if (emptyState) emptyState.classList.add('hidden');
     
     const template = document.getElementById('file-item-template');
+    if (!template) return;
 
     files.forEach(file => {
         const fileItem = template.content.cloneNode(true);
@@ -226,8 +235,11 @@ function renderFiles() {
 
 function initializeListeners() {
     // Botões de Teoria e Atividades
-    document.getElementById('btn-theory').addEventListener('click', toggleTheory);
-    document.getElementById('btn-activities').addEventListener('click', toggleActivities);
+    const btnTheory = document.getElementById('btn-theory');
+    const btnActivities = document.getElementById('btn-activities');
+    
+    if (btnTheory) btnTheory.addEventListener('click', toggleTheory);
+    if (btnActivities) btnActivities.addEventListener('click', toggleActivities);
 
     // Botões de Categoria (Teoria e Atividades)
     document.querySelectorAll('.category-selector .category-btn').forEach(btn => {
@@ -235,7 +247,7 @@ function initializeListeners() {
     });
 
     // Adiciona listeners para os botões de opção e revelar explicação
-    document.querySelectorAll('#activities-section .activities-card-container .activity-card').forEach(card => {
+    document.querySelectorAll('.activity-card').forEach(card => {
         const activityId = card.getAttribute('data-activity-id');
         
         // Botões de Opção
@@ -245,8 +257,42 @@ function initializeListeners() {
         });
         
         // Botões de Revelar Explicação
-        card.querySelector('.reveal-btn').addEventListener('click', () => revealAnswer(activityId));
+        const revealBtn = card.querySelector('.reveal-btn');
+        if (revealBtn) {
+            revealBtn.addEventListener('click', () => revealAnswer(activityId));
+        }
     });
+
+    // --- Listeners de Upload ---
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file-input');
+
+    if (uploadArea && fileInput) {
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        // Drag and Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#bd6615';
+            uploadArea.style.background = 'rgba(0, 0, 0, 0.4)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#b99269';
+            uploadArea.style.background = 'rgba(0, 0, 0, 0.2)';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#b99269';
+            uploadArea.style.background = 'rgba(0, 0, 0, 0.2)';
+            handleFiles(e.dataTransfer.files);
+        });
+    }
 
     // Inicializa o estado de exibição
     updateCategoryDisplay();
@@ -259,4 +305,8 @@ function init() {
 }
 
 // Inicialização
-document.addEventListener('DOMContentLoaded', init);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
