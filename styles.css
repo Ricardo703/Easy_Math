@@ -7,35 +7,38 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, #312e81 0%, #581c87 50%, #831843 100%);
+    /* Fundo degradê: do Vinho profundo ao Laranja queimado (Céu do álbum) */
+    background: linear-gradient(135deg, #1a0f0d 0%, #451a03 50%, #883825 100%);
     padding: 24px;
     overflow-x: hidden;
     position: relative;
+    color: #f8fafc;
 }
 
+/* Elementos de fundo (Glows) adaptados para tons de fogo e terra */
 .bg-element {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.2;
+    opacity: 0.15;
     animation: pulse 3s ease-in-out infinite;
     pointer-events: none;
 }
 
-.bg-element:nth-child(1) { top: 80px; left: 80px; width: 256px; height: 256px; background: #3b82f6; }
-.bg-element:nth-child(2) { top: 160px; right: 80px; width: 288px; height: 288px; background: #a855f7; animation-delay: 1s; }
-.bg-element:nth-child(3) { bottom: 80px; left: 160px; width: 320px; height: 320px; background: #ec4899; animation-delay: 2s; }
+.bg-element:nth-child(1) { top: 80px; left: 80px; width: 256px; height: 256px; background: #bd6615; } /* Laranja */
+.bg-element:nth-child(2) { top: 160px; right: 80px; width: 288px; height: 288px; background: #581f14; animation-delay: 1s; } /* Vinho */
+.bg-element:nth-child(3) { bottom: 80px; left: 160px; width: 320px; height: 320px; background: #3d4021; animation-delay: 2s; } /* Verde Oliva */
 
 .floating-symbol {
     position: absolute;
-    color: white;
+    color: #b99269; /* Cor de areia/lápide */
     font-size: 36px;
     opacity: 0.1;
     animation: float 8s linear infinite;
     pointer-events: none;
 }
 
-@keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.3; } }
+@keyframes pulse { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.25; } }
 @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
@@ -43,20 +46,24 @@ body {
 
 .header { text-align: center; margin-bottom: 48px; }
 .header-icon { width: 64px; height: 64px; margin: 0 auto 16px; animation: bounce 2s ease-in-out infinite; }
-h1 { font-size: 60px; font-weight: bold; color: white; margin-bottom: 16px; letter-spacing: -0.05em; }
-.subtitle { font-size: 20px; color: #e9d5ff; margin-bottom: 24px; }
+h1 { font-size: 60px; font-weight: bold; color: white; margin-bottom: 16px; letter-spacing: -0.05em; text-shadow: 2px 4px 10px rgba(0,0,0,0.5); }
+.subtitle { font-size: 20px; color: #b99269; margin-bottom: 24px; }
 
 .button-group { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
 .btn {
     padding: 12px 32px; border-radius: 9999px; font-weight: 600; border: none; cursor: pointer;
     transition: all 0.3s; display: flex; align-items: center; gap: 8px; font-size: 16px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 .btn:hover { transform: scale(1.05); }
-.btn-theory { background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%); color: white; }
-.btn-theory:hover { background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%); }
-.btn-activities { background: linear-gradient(135deg, #ec4899 0%, #9333ea 100%); color: white; }
-.btn-activities:hover { background: linear-gradient(135deg, #db2777 0%, #7e22ce 100%); }
+
+/* Botão Teoria: Laranja Master */
+.btn-theory { background: linear-gradient(135deg, #bd6615 0%, #883825 100%); color: white; }
+.btn-theory:hover { background: linear-gradient(135deg, #a35512 0%, #6b2a1b 100%); }
+
+/* Botão Atividades: Verde Oliva Escuro */
+.btn-activities { background: linear-gradient(135deg, #4b4d2d 0%, #2e3019 100%); color: white; }
+.btn-activities:hover { background: linear-gradient(135deg, #3d4021 0%, #1c1d0f 100%); }
 
 .section { margin-bottom: 32px; }
 .category-selector { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px; }
@@ -64,130 +71,79 @@ h1 { font-size: 60px; font-weight: bold; color: white; margin-bottom: 16px; lett
     padding: 12px 24px; border-radius: 9999px; font-weight: 600; border: none; cursor: pointer;
     transition: all 0.3s; font-size: 16px; display: flex; align-items: center; gap: 8px;
 }
-.category-btn.active { transform: scale(1.05); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
-.category-btn:not(.active) { background: rgba(255, 255, 255, 0.1); color: #e9d5ff; }
-.category-btn:not(.active):hover { background: rgba(255, 255, 255, 0.2); }
+.category-btn.active { transform: scale(1.05); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4); }
+.category-btn:not(.active) { background: rgba(0, 0, 0, 0.3); color: #b99269; border: 1px solid rgba(185, 146, 105, 0.2); }
+.category-btn:not(.active):hover { background: rgba(0, 0, 0, 0.5); }
 
-.category-probability.active { background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%); color: white; }
-.category-triangles.active { background: linear-gradient(135deg, #f97316 0%, #dc2626 100%); color: white; }
-.category-pythagoras.active { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
+/* Categorias com variações de Marrom, Laranja e Oliva */
+.category-probability.active { background: #883825; color: white; }
+.category-triangles.active { background: #bd6615; color: white; }
+.category-pythagoras.active { background: #3d4021; color: white; }
 
 .card {
-    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); border-radius: 24px;
-    padding: 32px; border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(20, 10, 10, 0.6); backdrop-filter: blur(16px); border-radius: 24px;
+    padding: 32px; border: 1px solid rgba(185, 146, 105, 0.2);
 }
-.theory-card { border-color: #93c5fd; }
+.theory-card { border-color: #bd6615; }
 .theory-header {
     font-size: 36px; font-weight: bold; color: white; margin-bottom: 24px;
     display: flex; align-items: center;
 }
 .theory-icon {
-    background: linear-gradient(135deg, #60a5fa 0%, #06b6d4 100%);
+    background: linear-gradient(135deg, #bd6615 0%, #883825 100%);
     border-radius: 50%; padding: 12px; margin-right: 16px;
 }
 .theory-section {
-    border-radius: 16px; padding: 24px; margin-bottom: 24px; border-left: 4px solid;
-    /* --- MUDANÇA APLICADA AQUI --- */
-    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px; padding: 24px; margin-bottom: 24px; 
+    border-left: 4px solid #bd6615;
+    background: rgba(255, 255, 255, 0.03);
 }
-.theory-section h3 { font-size: 24px; font-weight: bold; margin-bottom: 12px; }
-.theory-section p, .theory-section li { color: white; line-height: 1.6; }
 
 .formula-box {
-    background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 16px; margin: 12px 0;
-    text-align: center; font-family: 'Courier New', monospace; font-weight: bold; color: #fbbf24;
+    background: rgba(0, 0, 0, 0.5); border-radius: 12px; padding: 16px; margin: 12px 0;
+    text-align: center; font-family: 'Courier New', monospace; font-weight: bold; color: #bd6615;
 }
 .example-box {
-    background: rgba(255, 255, 255, 0.1); border-left: 4px solid #60a5fa;
+    background: rgba(255, 255, 255, 0.05); border-left: 4px solid #b99269;
     padding: 16px; border-radius: 12px; margin: 16px 0;
 }
 .tip-box {
-    background: rgba(251, 191, 36, 0.2); border: 1px solid #fbbf24;
-    border-radius: 12px; padding: 12px; margin: 12px 0; font-size: 14px; color: #fef08a;
+    background: rgba(189, 102, 21, 0.1); border: 1px solid #bd6615;
+    border-radius: 12px; padding: 12px; margin: 12px 0; font-size: 14px; color: #f8fafc;
 }
 
 .activity-card {
-    /* --- MUDANÇA APLICADA AQUI (de 0.1 para 0.15) --- */
-    background: rgba(255, 255, 255, 0.15); 
+    background: rgba(255, 255, 255, 0.05); 
     backdrop-filter: blur(16px);
-    border-radius: 24px; padding: 24px; border: 1px solid #d8b4fe;
+    border-radius: 24px; padding: 24px; border: 1px solid rgba(185, 146, 105, 0.3);
     margin-bottom: 16px; transition: all 0.3s;
 }
-/* --- MUDANÇA APLICADA AQUI (de 0.2 para 0.25 no hover) --- */
-.activity-card:hover { background: rgba(255, 255, 255, 0.25); } 
-.activity-header { display: flex; align-items: center; margin-bottom: 16px; }
+.activity-card:hover { background: rgba(255, 255, 255, 0.08); border-color: #bd6615; } 
+
 .activity-number {
-    width: 40px; height: 40px; background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+    width: 40px; height: 40px; background: linear-gradient(135deg, #bd6615 0%, #451a03 100%);
     border-radius: 50%; display: flex; align-items: center; justify-content: center;
     font-weight: bold; color: white; margin-right: 12px;
 }
-.activity-title { font-size: 24px; font-weight: bold; color: white; }
-.activity-description { color: white; font-size: 18px; margin-bottom: 16px; line-height: 1.5; }
-.hint-box { background: rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
-.hint-text { color: #bfdbfe; font-size: 14px; }
 
 .option-btn {
     width: 100%; text-align: left; padding: 16px; border-radius: 16px;
     margin-bottom: 12px; border: 2px solid transparent; cursor: pointer;
-    transition: all 0.3s; background: rgba(255, 255, 255, 0.1); color: white;
+    transition: all 0.3s; background: rgba(0, 0, 0, 0.3); color: white;
     font-weight: 600; font-size: 16px;
 }
-.option-btn:not(.correct):not(.wrong):hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.02); }
-.option-btn.correct { background: rgba(34, 197, 94, 0.4); border-color: #4ade80; }
-.option-btn.wrong { background: rgba(239, 68, 68, 0.4); border-color: #f87171; }
-.option-btn:disabled { cursor: not-allowed; }
+.option-btn:not(.correct):not(.wrong):hover { background: rgba(189, 102, 21, 0.2); border-color: #bd6615; }
+.option-btn.correct { background: rgba(61, 64, 33, 0.6); border-color: #a3ad4b; } /* Verde Oliva */
+.option-btn.wrong { background: rgba(136, 56, 37, 0.6); border-color: #f87171; } /* Vinho/Vermelho */
 
-.result-box { border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 1px solid; }
-.result-success { background: rgba(34, 197, 94, 0.2); border-color: #4ade80; }
-.result-error { background: rgba(239, 68, 68, 0.2); border-color: #f87171; }
-.reveal-btn {
-    background: rgba(234, 179, 8, 0.4); color: white; padding: 8px 24px;
-    border-radius: 9999px; border: none; font-weight: 600; cursor: pointer;
-    transition: all 0.2s;
-}
-.reveal-btn:hover { background: rgba(234, 179, 8, 0.6); transform: scale(1.05); }
 .explanation-box {
-    background: rgba(168, 85, 247, 0.2); border-radius: 16px; padding: 20px;
-    border: 1px solid #c084fc; margin-top: 16px;
+    background: rgba(185, 146, 105, 0.1); border-radius: 16px; padding: 20px;
+    border: 1px solid #b99269; margin-top: 16px;
 }
 
 .upload-area {
-    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px);
-    border-radius: 24px; padding: 32px; border: 2px dashed #d8b4fe;
-    text-align: center; margin-bottom: 32px; transition: all 0.3s; cursor: pointer;
+    background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(16px);
+    border-radius: 24px; padding: 32px; border: 2px dashed #b99269;
+    text-align: center; margin-bottom: 32px; transition: all 0.3s;
 }
-.upload-area:hover { transform: scale(1.05); }
-.upload-area.drag-active { border-color: #f9a8d4; background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-.upload-icon { width: 80px; height: 80px; margin: 0 auto 16px; animation: bounce 2s ease-in-out infinite; }
-
-.files-list { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); border-radius: 24px; padding: 32px; }
-.file-item {
-    background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px);
-    border-radius: 16px; padding: 16px; display: flex; align-items: center;
-    justify-content: space-between; margin-bottom: 16px; transition: all 0.3s;
-}
-.file-item:hover { background: rgba(255, 255, 255, 0.3); }
-.file-icon { background: linear-gradient(135deg, #ec4899 0%, #9333ea 100%); border-radius: 12px; padding: 12px; margin-right: 16px; }
-.file-info { flex: 1; }
-.file-name { color: white; font-weight: 600; font-size: 18px; margin-bottom: 4px; }
-.file-meta { color: #e9d5ff; font-size: 14px; }
-.icon-btn {
-    background: rgba(59, 130, 246, 0.3); border: none; border-radius: 50%;
-    width: 36px; height: 36px; cursor: pointer; transition: all 0.2s; margin-left: 8px;
-}
-.icon-btn:hover { background: rgba(59, 130, 246, 0.5); transform: scale(1.1); }
-.icon-btn.delete { background: rgba(239, 68, 68, 0.2); }
-.icon-btn.delete:hover { background: rgba(239, 68, 68, 0.4); }
-
-.hidden { display: none; }
-svg { display: block; }
-ul { list-style: none; margin-left: 20px; margin-top: 8px; }
-li { margin-bottom: 6px; color: #e9d5ff; display: flex; align-items: flex-start; }
-
-@media (max-width: 768px) {
-    h1 { font-size: 40px; }
-    .theory-header { font-size: 28px; }
-    .button-group { flex-direction: column; align-items: stretch; }
-    .category-selector { flex-direction: column; gap: 12px; }
-    .category-btn { width: 100%; justify-content: center; }
-}
+.upload-area:hover { border-color: #bd6615; background: rgba(0, 0, 0, 0.4); }
