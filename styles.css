@@ -147,3 +147,7 @@ h1 { font-size: 60px; font-weight: bold; color: white; margin-bottom: 16px; lett
     text-align: center; margin-bottom: 32px; transition: all 0.3s;
 }
 .upload-area:hover { border-color: #bd6615; background: rgba(0, 0, 0, 0.4); }
+/* Utilitário para esconder elementos */
+.hidden {
+    display: none !important;
+}
